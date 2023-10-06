@@ -14,8 +14,9 @@ class Post extends Model {
 
     public function scopeFilter($query, array $filters) {
         if ($filters['search'] ?? false) {
-            $query->where('title', 'like', '%' . request('search') . '%')
-                ->orWhere('body', 'like', '%' . request('search') . '%');
+            $query->where(fn($query) =>
+                $query->where('title', 'like', '%' . request('search') . '%')
+                ->orWhere('body', 'like', '%' . request('search') . '%'));
         } else if ($filters['category'] ?? false) {
             $query->whereHas('category', fn($query) => // 'category' here means the category function below
                 $query->where('slug', request('category'))
