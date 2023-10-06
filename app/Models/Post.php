@@ -20,6 +20,10 @@ class Post extends Model {
             $query->whereHas('category', fn($query) => // 'category' here means the category function below
                 $query->where('slug', request('category'))
             );
+        } else if ($filters['author'] ?? false) {
+            $query->whereHas('author', fn($query) => // 'category' here means the category function below
+                $query->where('username', request('author'))
+            );
         }
     }
 
