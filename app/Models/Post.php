@@ -16,6 +16,10 @@ class Post extends Model {
         if ($filters['search'] ?? false) {
             $query->where('title', 'like', '%' . request('search') . '%')
                 ->orWhere('body', 'like', '%' . request('search') . '%');
+        } else if ($filters['category'] ?? false) {
+            $query->whereHas('category', fn($query) => // 'category' here means the category function below
+                $query->where('slug', request('category'))
+            );
         }
     }
 
