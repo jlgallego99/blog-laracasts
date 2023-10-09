@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class RegisterController extends Controller {
@@ -19,6 +20,7 @@ class RegisterController extends Controller {
 
         User::create($attributes);
 
-        return redirect('/');
+        // Session only on the next page load (flash)
+        return redirect('/')->with('success', 'Your account has been created.');
     }
 }
