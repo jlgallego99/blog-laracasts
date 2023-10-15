@@ -33,6 +33,7 @@ class PostController extends Controller {
     public function store() {
         $attributes = request()->validate([
            'title' => ['required', Rule::unique('posts', 'title')],
+           'thumbnail' => 'required|image',
            'excerpt' => 'required',
            'body' => 'required',
            'category_id' => ['required', Rule::exists('categories', 'id')]
@@ -40,6 +41,7 @@ class PostController extends Controller {
 
         $attributes['user_id'] = auth()->id();
         $attributes['slug'] = Str::slug($attributes['title'], '-');
+        $attributes['thumbnail'] = request()->file('thumbnail')->store('thumbnails');
 
         Post::create($attributes);
 
