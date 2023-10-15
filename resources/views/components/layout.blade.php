@@ -29,7 +29,7 @@
                         </x-slot>
 
                         @if(auth()->user()?->username == 'dunspa1')
-                            <x-dropdown-item href="/admin/dashboard">Dashboard</x-dropdown-item>
+                            <x-dropdown-item href="/admin/posts" :active="request()->routeIs('all_posts')">All Posts</x-dropdown-item>
                             <x-dropdown-item href="/admin/posts/create" :active="request()->routeIs('create_post')">New Post</x-dropdown-item>
                         @endif
                     </x-dropdown>
